@@ -1,0 +1,26 @@
+body{
+    background-image: url('../images/slider/slider-bg-1.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh;
+    overflow: hidden;
+}
+.rounded{
+    border-radius: 1rem;
+    -webkit-border-radius: 1rem;
+    -moz-border-radius: 1rem;
+    -ms-border-radius: 1rem;
+    -o-border-radius: 1rem;
+}
+.nav-pills .nav-link{
+    color: #555
+}
+.nav-pills .nav-link.active{
+    color: white
+}
+input[type="radio"]{
+    margin-right: 5px
+}
+.bold{
+    font-weight:bold
+}

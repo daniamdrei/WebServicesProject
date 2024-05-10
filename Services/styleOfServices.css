@@ -1,0 +1,51 @@
+@import url('https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,500;1,600;1,700;1,800;1,900&family=Readex+Pro&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+html {
+    font-family: "Rubik", sans-serif;
+}
+#Services {
+    /*height: 100vh;*/
+    padding-top: 50px;
+    min-height: 100vh;
+}
+.optionsOfServic {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+.optionsOfServic li {
+    font-family: "Rubik", sans-serif;
+    margin-left: .5rem;
+    font-size: 1rem;
+    font-weight: 500;
+    background-color: #28ABE3;
+    padding: 10px;
+    border-radius: 15px;
+    transition: .3s;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    -ms-border-radius: 15px;
+    -o-border-radius: 15px;
+    -webkit-transition: .3s;
+    -moz-transition: .3s;
+    -ms-transition: .3s;
+    -o-transition: .3s;
+}
+.optionsOfServic li:hover {
+    opacity: .5;
+}
+.optionsOfServic li a {
+    color: black;
+}
+.card {
+    margin: auto;
+    margin-bottom: 20px;
+}
+.card-text, .card-title {
+    direction: rtl;
+    text-align: right;
+}
+li.activeClass {
+    background-color: #b780a7;
+}
