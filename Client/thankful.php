@@ -26,6 +26,7 @@ if(isset($_POST['submit'])){
 <link rel="shortcut icon" type="image/x-icon" href="../images/favicon.ico" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="../plugins/bootstrap/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="../plugins/rating-plugin/src/css/star-rating-svg.css">
 <style>
     
     @media (max-width:767px)
@@ -93,6 +94,7 @@ h2 {
   text-align: center;  
   margin-bottom: 50px;
 } 
+/*
 .rating:not(:checked) > input {
   position: absolute;
   appearance: none;
@@ -126,33 +128,24 @@ h2 {
   color: #ffa723;
 }
 
-
+*/
 
 
 </style>
 <body>
 <div class="container"></div>
 <form id="regForm" action="" style="margin-top: 150px;" action="thankful.php" method="post">
-  <div class="tab mt-5  " style="text-align: right; direction: rtl;">
+  <div class="tab mt-5  " style="text-align: right; ">
     <h2>
         <br>
-         وشكرا على ثقتكم.
+         .وشكرا على ثقتكم
     </h2>
     <div class="container">
         <div class="row" style="margin: auto; text-align: center;">
             <div class="col-md-12">
                 <h3>قيم الخدمة </h3>
-                <div class="rating" >
-                    <input value="5" name="rate" id="star5" type="radio">
-                    <label title="text" for="star5"></label>
-                    <input value="4" name="rate" id="star4" type="radio">
-                    <label title="text" for="star4"></label>
-                    <input value="3" name="rate" id="star3" type="radio" checked="">
-                    <label title="text" for="star3"></label>
-                    <input value="2" name="rate" id="star2" type="radio">
-                    <label title="text" for="star2"></label>
-                    <input value="1" name="rate" id="star1" type="radio">
-                    <label title="text" for="star1"></label>
+                <div class=" my-rating" >
+
                 </div>
                 <br>
                 <textarea name="" id="" cols="30" rows="2"></textarea>
@@ -167,3 +160,18 @@ h2 {
 </div> 
 </body>
 </html>
+
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+<script src="../plugins/rating-plugin/dist/jquery.star-rating-svg.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+<script>
+$(".my-rating").starRating({
+  initialRating: 4,
+  strokeColor: '#894A00',
+  strokeWidth: 10,
+  starSize: 25
+});
+
+</script>
