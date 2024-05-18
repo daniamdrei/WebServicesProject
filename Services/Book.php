@@ -17,9 +17,9 @@ if(isset($_GET['Sid'])){
    $Sid = $_GET['Sid'];
    $Uid = $_SESSION['user_id'];
     // check if the user already booked a service 
-    $select=$conn->prepare("SELECT * FROM book where user_id = '$Uid' ");
-    $select->execute();
-    if($select->rowCount()>0){
+    $select1=$conn->prepare("SELECT * FROM book where user_id = '$Uid' ");
+    $select1->execute();
+    if($select1->rowCount()>0){
       //type a message in index page that the user already booked a service
       header('location:'.URL.'index.php?message=انت بالفعل حجزت خدمة , انتظر لانهاء الخدمة لتسطيع الحجز مرة اخرى') ;
       exit();
@@ -42,6 +42,7 @@ if(isset($_GET['Sid'])){
 <html>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="../plugins/bootstrap/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="../plugins/rating-plugin/src/css/star-rating-svg.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
 <style>
@@ -420,14 +421,16 @@ button:hover {
         <img src="../images/users_img/<?php echo $worker->img ; ?>">
         <span> <?php echo $worker->fullname ?>  </span>
         <div>
-            <span> <?php echo $worker->location?> </span>
-            <h5><i class="bi bi-star-fill text-warning"></i>
-             <i class="bi bi-star-fill text-warning"></i>
-            <i class="bi bi-star-fill text-warning"></i>
-            <i class="bi bi-star-fill text-warning"></i>
-            <i class="bi bi-star-fill text-warning"></i> 
-         </h5>
-         خبرة <?php echo $worker->experience  ; ?>
+        <div class="my-rating" dir="ltr">
+                                      
+        <i class="bi bi-star-fill text-warning"></i>
+        <i class="bi bi-star-fill text-warning"></i>
+        <i class="bi bi-star-fill text-warning"></i>
+        <i class="bi bi-star-fill text-warning "></i>
+        <i class="bi bi-star-fill text-warning"></i>
+
+      </div>
+              خبرة <?php echo $worker->experience  ; ?>
          <h6 class="text-<?php if($worker->availability == 1 ) {echo 'success' ;}else{ echo 'danger' ; }?>"> <?php if( $worker->availability == 1) { echo  "  متاح حاليا" ; }else{ echo "  غير متاح حاليا" ; }?> </h6>
         </div>
       
@@ -483,6 +486,7 @@ button:hover {
   </div>
 </form>
 </div>
+
 <script>
 var currentTab = 0; // Current tab is set to be the first tab (0)
 showTab(currentTab); // Display the current tab
@@ -560,5 +564,24 @@ function fixStepIndicator(n) {
 </script>
 <script src="/plugins/bootstrap/bootstrap.js"></script>
 <script src="/plugins/bootstrap/bootstrap.min.js"></script>
+<script src="../plugins/rating-plugin/dist/jquery.star-rating-svg.js"></script>
+ 
+<script>
+
+$(".my-rating").starRating({
+    readOnly: true,
+    starSize: 25,
+    initialRating : <?php 
+        if(isset($workers->rating)){
+           echo  $workers->rating ;
+           }  
+          else{
+            echo "0";    
+            }
+    ?>,
+  })
+ 
+</script> 
+
 </body>
 </html>

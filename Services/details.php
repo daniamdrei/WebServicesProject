@@ -12,6 +12,8 @@ if(isset($_GET['id'])){
    $services = $conn->query("SELECT * FROM services Where id= '$id'");
    $services->execute();
    $service = $services->fetch(PDO::FETCH_OBJ);
+
+   
   
   }
 ?>
@@ -158,10 +160,7 @@ Welcome Slider
     <div class="container mt-50">
         <h1 data-aos="slide-down" data-aos-duration="1000"> <?php echo $service->name ?></h1>
         <p data-aos="slide-down" data-aos-duration="1000">
-            تشمل خدماتنا تركيب جميع أنواع الأجهزة الكهربائية،
-                 من الثلاجات والغسالات إلى أنظمة التكييف والتدفئة <br> والتدفئة المركزية وجميع أنواع المكيفات والصوبات الكهربائية وتتضمن ساعات الكهرباء
-                 <br>
-                 علماً بإنه يتم صيانتهم بأحدث التقينات والأجهزة المتطورة  بالإعتماد على التكنولوجيا.
+        <?php echo $service->descriptions ?>
         </p>
         <div class="mt-5" data-aos="slide-down" data-aos-duration="1000">
             <h4>سعر الخدمة : <span>25 دينار أردني</span></h4>

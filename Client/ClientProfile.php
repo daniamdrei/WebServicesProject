@@ -16,9 +16,14 @@ if($_SESSION['user_type'] === 'worker'){
   $select1 = $conn->query("SELECT * FROM user WHERE user_id = '$id' AND usertype = 'client' ");
   $select1->execute();
   $clients = $select1->fetch(PDO::FETCH_OBJ);
+
+  //fetch the rating of the worker form rating table
+  $ratings = $conn->query("SELECT * FROM rating WHERE user_id = '$id'");
+  $ratings->execute();
+  $rating = $ratings->fetch(PDO::FETCH_OBJ);
   
   //fetch info about booking
-  $select2 = $conn->query("SELECT worker.fullname , worker.Phone , worker.img , worker.availability ,worker.experience , book.booking_time , book.serverName  , book.finished , book.serverCategory 
+  $select2 = $conn->query("SELECT worker.fullname , worker.Phone , worker.img , worker.rating , worker.availability ,worker.experience , book.booking_time , book.serverName  , book.finished , book.serverCategory 
   from book INNER JOIN worker ON book.worker_id = worker.id WHERE book.user_id = '$id' ");
   $select2->execute();
   $bookInfo = $select2->fetch(PDO::FETCH_OBJ);
@@ -70,6 +75,7 @@ if($_SESSION['user_type'] === 'worker'){
   <!-- Main Stylesheet -->
   <link rel="stylesheet" href="../css/style.css">
   <link rel="stylesheet" href="ProfileStyle.css">
+  <link rel="stylesheet" type="text/css" href="../plugins/rating-plugin/src/css/star-rating-svg.css">
   
 
 </head>
@@ -131,17 +137,8 @@ if($_SESSION['user_type'] === 'worker'){
                                     <span> عدد سنين الخبرة: <?php  echo $bookInfo->experience ;?> </span>
                                     <span>   رقم الهاتف: <?php  echo $bookInfo->Phone ;?> </span>
                                     <span class="text-<?php if($bookInfo->availability == 1 ) {echo 'success' ;}else{ echo 'danger' ; }?>"> <?php if( $bookInfo->availability == 1) { echo  "  متاح حاليا" ; }else{ echo "  غير متاح حاليا" ; }?> </span>
-                                    <div class="rating">
-                                      <input value="5" name="rate" id="star5" type="radio">
-                                      <label title="text" for="star5"></label>
-                                      <input value="4" name="rate" id="star4" type="radio">
-                                      <label title="text" for="star4"></label>
-                                      <input value="3" name="rate" id="star3" type="radio" checked="">
-                                      <label title="text" for="star3"></label>
-                                      <input value="2" name="rate" id="star2" type="radio">
-                                      <label title="text" for="star2"></label>
-                                      <input value="1" name="rate" id="star1" type="radio">
-                                      <label title="text" for="star1"></label>
+                                    <div class="my-rating" dir="ltr">
+                                      
                                     </div>
                                     <div class=" d-flex mt-2"> <a href="ClientProfile.php?delete=delete&id=<?php echo $_SESSION['user_id'] ;?>" class="btn btn-primary">الغاء</a> </div> 
     </div>
@@ -185,11 +182,24 @@ if($_SESSION['user_type'] === 'worker'){
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCcABaamniA6OL5YvYSpB3pFMNrXwXnLwU"></script>
 <script src="../plugins/google-map/gmap.js"></script>
 
+<script src="../plugins/rating-plugin/dist/jquery.star-rating-svg.js"></script>
 <!-- Custom js -->
 <script src="../js/script.js"></script>
 <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
 <script>
   AOS.init();
+
+  $(".my-rating").starRating({
+    readOnly: true,
+    starSize: 25,
+    initialRating : <?php 
+        if(isset($bookInfo->rating)){
+            echo $bookInfo->rating ;
+        }else{
+            echo "0";    
+            }
+    ?>,
+  })
 </script>
 <script src="function.js"></script>
 

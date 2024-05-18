@@ -1,9 +1,7 @@
 
 
 <?php ob_start(); ?>
-<?php require 'config.php'; 
-      require '../layout/Header.php'
-?>
+<?php require 'config.php'; ?>
 <?php 
 if(isset($_SESSION['user_name'])){
   header('location:http://localhost/php/theme/');

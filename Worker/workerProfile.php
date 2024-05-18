@@ -24,6 +24,12 @@
      $select2->execute();
      $bookInformation = $select2->fetchAll(PDO::FETCH_OBJ);
 
+     //fetch the rating of the worker form rating table
+  $ratings = $conn->query("SELECT * FROM rating WHERE worker_id = '$id'");
+  $ratings->execute();
+  $rating = $ratings->fetch(PDO::FETCH_OBJ);
+  
+
  }
  if(isset($_GET['Bid'])){
   $Bid = $_GET['Bid'];
@@ -69,7 +75,7 @@ ob_end_flush();
   <!-- Main Stylesheet -->
   <link rel="stylesheet" href="../css/style.css">
   <link rel="stylesheet" href="ProfileStyle.css">
-  
+  <link rel="stylesheet" type="text/css" href="../plugins/rating-plugin/src/css/star-rating-svg.css">
 
 </head>
 <body id="body">
@@ -94,7 +100,11 @@ ob_end_flush();
     <div class="row" >
         <div class="col-md-3 border-right">
             <div class="d-flex flex-column align-items-center text-center p-3 py-5">
-                <img class="rounded-circle mt-5" width="150px" src="../images/users_img/<?php echo $worker->img ;?>"><span class="font-weight-bold"> <?php  echo $worker->name ;?></span></div>
+                <img class="rounded-circle mt-5" width="150px" src="../images/users_img/<?php echo $worker->img ;?>">
+                <span class="font-weight-bold"> <?php  echo $worker->name ;?></span>
+                <div class="my-rating" dir="ltr">
+                 </div>
+              </div>
         </div>
         <div class="col-md-5 border-right">
             <div class="p-3 py-5">
@@ -111,7 +121,7 @@ ob_end_flush();
                     <div class="col-md-12"><label class="labels">مكان السكن</label><input type="text" class="form-control" placeholder="<?php  echo $worker->location ;?>"  readonly></div>
                     <div class="col-md-12"><label class="labels">البريد الإلكتروني</label><input type="text" class="form-control" placeholder="<?php  echo $worker->email ;?>" readonly></div>
                 </div>
-                <div class="mt-5 text-center"><a  href="script.php?availability=<?php echo $worker->availability; ?>&Wid=<?php echo $worker->id ; ?>" class="btn btn-<?php  if( $worker-> availability == 1  ){echo 'danger' ;}else{echo 'success' ;}?>" > <?php if( $worker-> availability == 1  ){echo 'غير متاح حاليا' ;}else{echo 'متاح حاليا' ;} ?></a></div>
+                <div class="mt-5 text-center"><a  href="script.php?availability=<?php echo $worker->availability; ?>&Wid=<?php echo $worker->workerId ; ?>" class="btn btn-<?php  if( $worker-> availability == 1  ){echo 'danger' ;}else{echo 'success' ;}?>" > <?php if( $worker-> availability == 1  ){echo 'غير متاح حاليا' ;}else{echo 'متاح حاليا' ;} ?></a></div>
                 <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="button" onclick="window.location.href='EditworkerProfile.php?id=<?php echo $worker->id ;?>'">تعديل الملف الشخصي</button></div>
             </div>
         </div>
@@ -134,7 +144,7 @@ ob_end_flush();
                                         <span>وقت تقديم الخدمة : <?php echo $bookInfo->booking_time ; ?> </span>
                                         <span>رقم الهاتف: <?php echo $bookInfo->phone ; ?> </span>
                                         <span>المكان:  <?php echo $bookInfo->loc ; ?> </span>
-                                        <div class=" d-flex mt-2"> <a href="script.php?Wid=<?php echo $worker->id ;?>&Uid=<?php  echo $bookInfo->user_id ;?>" class="btn btn-primary">إنهاء</a>
+                                        <div class=" d-flex mt-2"> <a href="script.php?Wid=<?php echo $worker->workerId ;?>&Uid=<?php  echo $bookInfo->user_id ;?>" class="btn btn-primary">إنهاء</a>
                                       </div><?php endforeach ; ?>
 
                                       </div>  <br><br>
@@ -229,6 +239,23 @@ function showSlides(n) {
 
 </script>
 
+<script src="../plugins/rating-plugin/dist/jquery.star-rating-svg.js"></script>
+ 
+<script>
+
+$(".my-rating").starRating({
+    readOnly: true,
+    starSize: 25,
+    initialRating : <?php 
+        if(isset($worker->rating)){
+            echo $worker->rating ;
+        }else{
+            echo "0";    
+            }
+    ?>,
+  })
+ 
+</script> 
 </body>
 
 </html>

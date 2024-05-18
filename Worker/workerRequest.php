@@ -4,7 +4,28 @@ session_start();
  define('URL' , 'http://localhost/php/theme/');
 ?>
 
-<?php 
+<?php
+
+ 
+
+
+// chack if the worker login
+if(!isset($_SESSION['user_name'])){
+  header('location:'.URL.'Authentication/Login.php?message=يجب عليك تسجيل الدخول لامكانية لتقديم خدمة ');
+  exit();
+} 
+if($_SESSION['user_type'] == 'client'){
+  header('location:'.URL.'index.php');
+  exit();
+}
+ $worker_id = $_SESSION['user_id'];
+ $select = $conn->query("SELECT * FROM worker where workerId = '$worker_id' ");
+ $select->execute();
+ if($select->rowCount()>0){
+      header("location:".URL."index.php?Unauthorized=1");
+      exit();
+ }
+
     //script for inserting the data into worker table
     if(isset($_POST['submit'])){
         //check if inputs are empty or not
@@ -134,7 +155,7 @@ Fixed Navigation
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#US" style="font-size: 17px; font-weight: 600;">من نحن</a>
+            <a class="nav-link" href="<?php echo URL ;?>#US" style="font-size: 17px; font-weight: 600;">من نحن</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="<?php echo URL ;?>contact.html" style="font-size: 17px; font-weight: 600;">تواصل معنا</a>

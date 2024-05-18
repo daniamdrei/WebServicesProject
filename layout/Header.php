@@ -3,6 +3,13 @@
 <?php
  session_start();
  define('URL' , 'http://localhost/php/theme/');
+ require 'Authentication/config.php' ;
+ if(isset($_SESSION['user_id'])){
+  $worker_id = $_SESSION['user_id'];
+ $select = $conn->query("SELECT status FROM worker where workerId = '$worker_id' ");
+ $select->execute();
+ $workerStauts = $select->fetchAll(PDO::FETCH_OBJ);
+ }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -84,6 +91,9 @@ Fixed Navigation
               خدماتنا
             </a>
           </li>
+    
+          
+         
           <li class="nav-item">
             <a class="nav-link" href="#US" style="font-size: 17px; font-weight: 600;">من نحن</a>
           </li>
@@ -109,11 +119,13 @@ Fixed Navigation
             <a class="nav-link dropdown-toggle" href="#!" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <?php echo $_SESSION['user_name'];?>
             </a>
+            
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
               <php></php>
               <li><a class="dropdown-item" href="<?php echo URL; ?>Worker/workerProfile.php?id=<?php echo $_SESSION['user_id']; ?>" style="text-align: right;">الملف الشخصي</a></li>
               <li><a class="dropdown-item Logout" href="<?php echo URL; ?>Authentication/logout.php" style="text-align: right;">تسجيل خروج</a></li>
               </ul> 
+              
               <?php endif;?>
           </li>
           <?php if(!isset($_SESSION['user_name'])): ?>

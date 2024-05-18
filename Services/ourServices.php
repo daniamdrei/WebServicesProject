@@ -25,7 +25,7 @@
       $painting = $services->fetchAll(PDO::FETCH_OBJ); 
 
       // fetch all carpent services
-      $services = $conn->query("SELECT * FROM services Where category= 'نجارة'  AND status = '1' ");
+      $services = $conn->query("SELECT * FROM services Where category= 'النجارة'  AND status = '1' ");
       $services->execute();
       $carpent = $services->fetchAll(PDO::FETCH_OBJ); 
 
@@ -114,7 +114,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#US" style="font-size: 17px; font-weight: 600;">من نحن</a>
+            <a class="nav-link" href="<?php echo URL ;?>#US" style="font-size: 17px; font-weight: 600;">من نحن</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="<?php echo URL ;?>contact.html" style="font-size: 17px; font-weight: 600;">تواصل معنا</a>
@@ -212,7 +212,7 @@ Welcome Slider
           <div class="card-body">
             <h5 class="card-title">  <?php echo $Elec->name ?> </h5>
             <p class="card-text">
-              <?php echo $Elec->descriptions	; ?>
+              <?php echo substr($Elec->descriptions ,0 ,58) .' ...' ; ?>
             </p>
             <a href="details.php?id=<?php echo $Elec->id?>" class="">اقرأ التفاصيل</a>
           </div>
@@ -237,7 +237,7 @@ Welcome Slider
           <div class="card-body">
             <h5 class="card-title">   <?php echo $plum->name ?></h5>
             <p class="card-text">
-             <?php  echo $plum->descriptions; ?>
+            <?php echo substr($plum->descriptions ,0 ,64) .' ...' ; ?>
             </p>
             <a href="details.php?id=<?php echo $plum->id ;?>" class="">اقرأ التفاصيل</a>
           </div>
@@ -262,7 +262,7 @@ Welcome Slider
           <div class="card-body">
             <h5 class="card-title">  <?php echo $carp->name ?></h5>
             <p class="card-text">
-              <?php echo $carp-> descriptions ;?>
+            <?php echo substr($carp->descriptions ,0 ,62) .' ...' ; ?>
             </p>
             <a href="details.php?id=<?php echo $carp->id ?>" class="">اقرأ التفاصيل</a>
           </div>
@@ -288,7 +288,7 @@ Welcome Slider
           <div class="card-body">
             <h5 class="card-title"> <?php echo $pain->name; ?></h5>
             <p class="card-text">
-             <?php echo $pain->descriptions ;?>
+            <?php echo substr($pain->descriptions ,0 ,62) .' ..' ; ?>
             </p>
             <a href="details.php?id=<?php echo $pain->id; ?>" class="">اقرأ التفاصيل</a>
           </div>
@@ -356,7 +356,7 @@ Start Call To Action
 				<div class="counters-item">
 					<img src="../images/carpenter-svgrepo-com.svg" alt=""style="width: 20%;">
 					<div>
-						<span class="counter" data-count="<?php echo  $carpenter->carpenter ;?>" data-aos="zoom-in-down" data-aos-duration="1000">0</span>
+						<span class="counter" data-count="<?php echo $carpenter->carpenter ;?>" data-aos="zoom-in-down" data-aos-duration="1000">0</span>
 					</div>
 					<h3>النجارة</h3>
 

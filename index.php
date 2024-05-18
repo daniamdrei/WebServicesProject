@@ -13,7 +13,9 @@ Welcome Slider
     echo " <script> alert('$message') </script> ";
   }
 
- 
+  if(isset($_GET['Unauthorized'])){
+   echo " <script> alert('لقد اصبحت عامل في موقعنا , لا يمكنك التقديم مجددا') </script> ";
+ }
 
 ?>
  <section class="hero-area">

@@ -1,7 +1,9 @@
 
-<?php ob_start(); ?>
-<?php require 'config.php'; 
-      require '../layout/Header.php'
+<?php
+session_start();
+ob_start(); ?>
+<?php require 'config.php';
+define('URL' , 'http://localhost/php/theme/');
       ?>
 <?php 
 if(isset($_SESSION['user_name'])){
@@ -35,7 +37,7 @@ if(isset($_SESSION['user_name'])){
                 $_SESSION['AdminName']= $row['username'];
                 $_SESSION['AdmineEmail'] = $row['email'];
                 $_SESSION['user_type'] = $row['usertype'];
-                header('location:'.URL.'admin-panel/');
+                header('location:'.URL.'admin-panel/index.php');
               
              }
         
@@ -80,7 +82,7 @@ ob_end_flush();
   margin: 0 auto;
   text-align: center;
   font-size: 16px;
-  padding: 30px;
+  padding: 15px;
 }
 .alertClose {
   float: right;

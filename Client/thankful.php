@@ -2,11 +2,40 @@
 <?php
 session_start();
 require '../Authentication/config.php' ;
+$id= $_SESSION['user_id'];
+
+$select = $conn->query("SELECT * FROM book WHERE user_id = '$id'");
+$select->execute();
+$info = $select->fetch(PDO::FETCH_OBJ);
+
+$worker_id = $info->worker_id ;
+
 
 if(isset($_POST['submit'])){
-   $id= $_SESSION['user_id'];
-  $delete = ("DELETE FROM book  WHERE user_id = '$id' ");
+   global $id ;
+   global $worker_id ;
+ 
+  $user_id= $_SESSION['user_id'];
+  $worker_id = $_POST['worker_id'];
+  $rating= $_POST['rating'];
+  $comment = $_POST['comment'];
+
+  $insert = $conn->prepare("INSERT INTO rating(user_id , worker_id , comment , rating) VALUES (:user_id , :worker_id , :comment , :rating )");
+  $insert->execute([
+    ':user_id' => $user_id ,
+    ':worker_id' =>$worker_id ,
+    ':comment' =>$comment,
+    ':rating' => $rating ,
+  ]);
+
+   $update = $conn->prepare("UPDATE  worker SET rating= :rating WHERE id = '$worker_id' ");
+   $update->execute([
+            ':rating'=>$rating,
+   ]);
+
+   $delete = ("DELETE FROM book  WHERE user_id = '$id' ");
   $conn->exec($delete);
+  
   header('location:http://localhost/php/theme/');
   exit();
 }
@@ -145,10 +174,12 @@ h2 {
             <div class="col-md-12">
                 <h3>قيم الخدمة </h3>
                 <div class=" my-rating" >
+                <input type="text" name="rating" id="rating" value="" >
+                <input type="text" name="worker_id" id="worker_id" value="<?php echo $info->worker_id ; ?>" >
 
                 </div>
                 <br>
-                <textarea name="" id="" cols="30" rows="2"></textarea>
+                <textarea name="comment" id="" cols="30" rows="2"></textarea>
                 <br>
                 <button type="submit" name="submit" class="btn btn-primary">إرسال</button>
             </div>
@@ -168,10 +199,32 @@ h2 {
 
 <script>
 $(".my-rating").starRating({
-  initialRating: 4,
-  strokeColor: '#894A00',
-  strokeWidth: 10,
-  starSize: 25
-});
+    starSize: 25,
+   // initialRating : <php 
+     //   if(isset($rates->rating)){
+      //      echo $rates->rating ;
+     //   }else{
+        //    echo "0";    
+//}
+//>,
+   callback: function(currentRating, $el){
+        // make a server call here
+        $('#rating').val(currentRating);
+
+       /*  $(".my-rating").click(function(e){
+            e.preventDefault();
+            var formdata = $("#regForm").serialize()+'&insert=insert';
+            $.ajax({
+               type: "POST",
+               url:"thankful.php",
+               data: formdata ,
+               success:function(){
+                alert(formdata);
+
+               }
+            })
+        })*/
+       }
+})
 
 </script>

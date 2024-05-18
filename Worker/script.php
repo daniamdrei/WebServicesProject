@@ -24,14 +24,14 @@ if( isset($_GET['Wid']) AND isset($_GET['Uid'])){
   $availability = $_GET['availability'];
    
   if($availability === '1'){
-    $update = $conn->prepare("UPDATE worker SET availability = :availability WHERE id = '$Wid' ");
+    $update = $conn->prepare("UPDATE worker SET availability = :availability WHERE workerId = '$Wid' ");
     $update->execute([
       ':availability'=>0 ,
     ]);
     header('location:workerProfile.php?id='.$Wid.'');
     exit();
   }elseif($availability === '0'){
-    $update = $conn->prepare("UPDATE worker SET availability = :availability WHERE id = '$Wid' ");
+    $update = $conn->prepare("UPDATE worker SET availability = :availability WHERE workerId = '$Wid' ");
     $update->execute([
       ':availability'=>1,
     ]);
