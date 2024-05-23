@@ -50,11 +50,14 @@ if(isset($_SESSION['user_name'])){
                   header("location:".URL."");
                  } 
           }else {
-            header('location:login.php?error=بريدك الالكتروني غير صحيح*');
+            header('location:login.php?error= كلمة السر غير صحيح*');
             exit();
                 }
 
-    }
+    }else {
+      header('location:login.php?error=بريدك الالكتروني غير صحيح*');
+      exit();
+          }
 }
     }
 ob_end_flush();

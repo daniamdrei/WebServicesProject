@@ -43,13 +43,20 @@ if($_SESSION['user_type'] == 'client'){
                     $experience = $_POST['experience'];
                     $servicetype = $_POST['servertype'];
                     $Phone = $_POST['phone'];
-                    $cv = $_FILES['cv']['name'];
+                    
 
                     //upload image name into the file
+                    $cv = $_FILES['cv']['name'];
                     $img = $_FILES['img']['name'];
-                    $fileTmpName = $_FILES['img']['tmp_name'];
-                    $fileDestination = '../images/users_img/'.$img;
-                    move_uploaded_file($fileTmpName , $fileDestination);
+
+                    $imgfileTmpName = $_FILES['img']['tmp_name'];
+                    $cvfileTmpName = $_FILES['cv']['tmp_name'];
+
+                    $imgfileDestination = '../images/users_img/'.$img;
+                    $cvfileDestination = '../images/user_cv/'.$cv;
+                    
+                    move_uploaded_file($imgfileTmpName , $imgfileDestination);
+                    move_uploaded_file($cvfileTmpName , $cvfileDestination);
 
                     // query to insert data into worker table
                     $insert = $conn->prepare("INSERT INTO worker ( workerId ,name,fullname, email, Phone, age, img, cv , servicetype, experience, location) VALUES(
@@ -255,7 +262,7 @@ Welcome Slider
                     <option hidden="">الخبرة</option>
                     <option>ثلاث سنوات</option>
                     <option>اقل من ثلاث سنوات</option>
-                    <option>خمس سنين وأكثر</option>       
+                    <option> خمس سنين وأكثر </option>       
                   </select>
                 </div>
                 <!--needed-->

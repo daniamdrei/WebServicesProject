@@ -4,7 +4,7 @@ session_start();
 require '../Authentication/config.php' ;
 $id= $_SESSION['user_id'];
 
-$select = $conn->query("SELECT * FROM book WHERE user_id = '$id'");
+$select = $conn->query("SELECT * FROM books WHERE user_id = '$id'");
 $select->execute();
 $info = $select->fetch(PDO::FETCH_OBJ);
 
@@ -20,7 +20,7 @@ if(isset($_POST['submit'])){
   $rating= $_POST['rating'];
   $comment = $_POST['comment'];
 
-  $insert = $conn->prepare("INSERT INTO rating(user_id , worker_id , comment , rating) VALUES (:user_id , :worker_id , :comment , :rating )");
+  $insert = $conn->prepare("INSERT INTO ratings(user_id , worker_id , comment , rating) VALUES (:user_id , :worker_id , :comment , :rating )");
   $insert->execute([
     ':user_id' => $user_id ,
     ':worker_id' =>$worker_id ,
@@ -33,7 +33,7 @@ if(isset($_POST['submit'])){
             ':rating'=>$rating,
    ]);
 
-   $delete = ("DELETE FROM book  WHERE user_id = '$id' ");
+   $delete = ("DELETE FROM books  WHERE user_id = '$id' ");
   $conn->exec($delete);
   
   header('location:http://localhost/php/theme/');
@@ -174,8 +174,8 @@ h2 {
             <div class="col-md-12">
                 <h3>قيم الخدمة </h3>
                 <div class=" my-rating" >
-                <input type="text" name="rating" id="rating" value="" >
-                <input type="text" name="worker_id" id="worker_id" value="<?php echo $info->worker_id ; ?>" >
+                <input type="text" name="rating" hidden id="rating" value="" >
+                <input type="text" name="worker_id" id="worker_id" hidden value="<?php echo $info->worker_id ; ?>" >
 
                 </div>
                 <br>

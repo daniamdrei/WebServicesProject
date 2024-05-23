@@ -2,7 +2,9 @@
 
 <?php ob_start(); ?>
 <?php require 'config.php'; ?>
+<?php header('Content-Type: text/html; charset=utf-8'); ?>
 <?php 
+
 if(isset($_SESSION['user_name'])){
   header('location:http://localhost/php/theme/');
   exit();
@@ -21,6 +23,10 @@ if(isset($_POST['submit']))
   }else if(empty($_POST['re_passw'])){
     header("location:signin.php?error=*يجب عليك ادخال اعادة كلمة السر");
     exit();
+  }else
+  if(empty($_POST['phone'])){
+    header("location:signin.php?error=*يجب عليك ادخال رقم الهاتف");
+    exit();
   }else{
         //set the variables
         $username =$_POST['username'];
@@ -29,6 +35,7 @@ if(isset($_POST['submit']))
         $re_passw = $_POST['re_passw'];
         $usertype = $_POST['usertype'];
         $location = $_POST['location'];
+        $phone = $_POST['phone'];
         $img = 'defult.jpg';
          // check for password match
         if ($passw == $re_passw){
@@ -45,11 +52,12 @@ if(isset($_POST['submit']))
                   exit();
                 }else{
                   //  query to insert the value into the table
-                  $stmt= $conn->prepare("INSERT INTO user (username	, email , password1	,usertype ,loc ,img ) 
-                  VALUES(:username	, :email , :password1 ,:usertype ,:loc ,:img ) ");
+                  $stmt= $conn->prepare("INSERT INTO user (username	, email , phone,password1	,usertype ,loc ,img ) 
+                  VALUES(:username	, :email , :phone ,:password1 ,:usertype ,:loc ,:img ) ");
                   $stmt->execute([
                   ':username' => $username ,
                   ':email' => $email ,
+                  ':phone'=>$phone ,
                   ':password1' =>password_hash($passw ,PASSWORD_DEFAULT),
                   ':usertype'=>$usertype,
                   ':loc'=>$location,
@@ -99,6 +107,7 @@ if(isset($_POST['submit']))
           <!-- ----- -->
         <input type="text" placeholder="اسم المستخدم"  style="text-align: right;" name="username">
         <input type="ُemail" placeholder="البريد الإلكتروني"  style="text-align: right;" name="email">
+        <input type="ُphone" placeholder=" رقم الهاتف"  style="text-align: right;" name="phone">
         <!--  error message if the password not match-->
         <?php if(isset($_GET['passerror'])){?>
           <p dir="rtl" style="color:red;"> 

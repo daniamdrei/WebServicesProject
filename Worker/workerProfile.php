@@ -19,13 +19,13 @@
   header('location:http://localhost/php/theme/');
   exit();
 }
-    $select2 = $conn->query("SELECT  book.id ,user.username , user.phone , user.user_id , user.img ,user.loc , book.booking_time , book.loc_type , book.loc_size , book.problem_details ,  book.serverName
-     from book  INNER  JOIN user ON book.user_id = user.user_id WHERE book.worker_id = '$worker->id' ");
+    $select2 = $conn->query("SELECT  books.id ,user.username , user.phone , user.user_id , user.img ,user.loc , books.booking_time , books.loc_type , books.loc_size , books.problem_details ,  books.serverName
+     from books  INNER  JOIN user ON books.user_id = user.user_id WHERE books.worker_id = '$worker->id' ");
      $select2->execute();
      $bookInformation = $select2->fetchAll(PDO::FETCH_OBJ);
 
      //fetch the rating of the worker form rating table
-  $ratings = $conn->query("SELECT * FROM rating WHERE worker_id = '$id'");
+  $ratings = $conn->query("SELECT * FROM ratings WHERE worker_id = '$id'");
   $ratings->execute();
   $rating = $ratings->fetch(PDO::FETCH_OBJ);
   
@@ -76,6 +76,7 @@ ob_end_flush();
   <link rel="stylesheet" href="../css/style.css">
   <link rel="stylesheet" href="ProfileStyle.css">
   <link rel="stylesheet" type="text/css" href="../plugins/rating-plugin/src/css/star-rating-svg.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
 </head>
 <body id="body">
@@ -99,10 +100,13 @@ ob_end_flush();
   <div class="container rounded bg-white mt-5 mb-5 py-3">
     <div class="row" >
         <div class="col-md-3 border-right">
+        <a class="btn btn-primary mx-5 btn-sm" href='<?php echo URL ;?> '">  الرجوع للصفحة الرئيسية</a>
             <div class="d-flex flex-column align-items-center text-center p-3 py-5">
                 <img class="rounded-circle mt-5" width="150px" src="../images/users_img/<?php echo $worker->img ;?>">
                 <span class="font-weight-bold"> <?php  echo $worker->name ;?></span>
                 <div class="my-rating" dir="ltr">
+                <br><br><br><br><br><br><br><br><br><br>
+                
                  </div>
               </div>
         </div>
@@ -146,7 +150,7 @@ ob_end_flush();
                                         <span>المكان:  <?php echo $bookInfo->loc ; ?> </span>
                                         <div class=" d-flex mt-2"> <a href="script.php?Wid=<?php echo $worker->workerId ;?>&Uid=<?php  echo $bookInfo->user_id ;?>" class="btn btn-primary">إنهاء</a>
                                       </div><?php endforeach ; ?>
-
+                                      
                                       </div>  <br><br>
         </div>
                     </div>
@@ -157,6 +161,7 @@ ob_end_flush();
           </div>
             </div> 
                   </div>
+
 <!--<a class="prev" onclick="plusSlides(-1)">❮</a>
 <a class="next" onclick="plusSlides(1)">❯</a>
                   -->  
@@ -172,6 +177,7 @@ ob_end_flush();
 </div>
 </div>
 <?php   else : ?>
+  
           <div class="container mt-4 mb-4 p-3 d-flex justify-content-center">
           <div class="card" style="width: 18rem;">
              <div class="card-body">
@@ -182,6 +188,7 @@ ob_end_flush();
     Essential Scripts
     =====================================-->
 <!-- Main jQuery -->
+
 <script src="/plugins/jquery/jquery.min.js"></script>
 
 <!-- Bootstrap4 -->

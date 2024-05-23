@@ -18,13 +18,13 @@ if($_SESSION['user_type'] === 'worker'){
   $clients = $select1->fetch(PDO::FETCH_OBJ);
 
   //fetch the rating of the worker form rating table
-  $ratings = $conn->query("SELECT * FROM rating WHERE user_id = '$id'");
+  $ratings = $conn->query("SELECT * FROM ratings WHERE user_id = '$id'");
   $ratings->execute();
   $rating = $ratings->fetch(PDO::FETCH_OBJ);
   
   //fetch info about booking
-  $select2 = $conn->query("SELECT worker.fullname , worker.Phone , worker.img , worker.rating , worker.availability ,worker.experience , book.booking_time , book.serverName  , book.finished , book.serverCategory 
-  from book INNER JOIN worker ON book.worker_id = worker.id WHERE book.user_id = '$id' ");
+  $select2 = $conn->query("SELECT worker.fullname , worker.Phone , worker.img , worker.rating , worker.availability ,worker.experience , books.booking_time , books.serverName  , books.finished , books.serverCategory 
+  from books INNER JOIN worker ON books.worker_id = worker.id WHERE books.user_id = '$id' ");
   $select2->execute();
   $bookInfo = $select2->fetch(PDO::FETCH_OBJ);
  }
@@ -36,7 +36,7 @@ if($_SESSION['user_type'] === 'worker'){
  if(isset($_GET['delete'] )){
   
    $id = $_GET['id'];
-  $delete = ("DELETE FROM book  WHERE user_id = '$id' ");
+  $delete = ("DELETE FROM books  WHERE user_id = '$id' ");
   $conn->exec($delete);
    header('location:ClientProfile.php?id='.$id.'');
    }
@@ -76,6 +76,7 @@ if($_SESSION['user_type'] === 'worker'){
   <link rel="stylesheet" href="../css/style.css">
   <link rel="stylesheet" href="ProfileStyle.css">
   <link rel="stylesheet" type="text/css" href="../plugins/rating-plugin/src/css/star-rating-svg.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   
 
 </head>
@@ -102,7 +103,10 @@ if($_SESSION['user_type'] === 'worker'){
         <div class="col-md-3 border-right">
             <div class="d-flex flex-column align-items-center text-center p-3 py-5">
                 <img class="rounded-circle mt-5" width="150px" src="../images/users_img/<?php echo $clients->img ?>"><span class="font-weight-bold"> <?php  echo $clients -> username?> </span></div>
-        </div>
+               
+               <br><br><br><br><br><br><br><br><br><br><a class="btn btn-primary btn-sm" href='<?php echo URL ;?> '">  الرجوع للصفحة الرئيسية</a>
+              </div>
+        
         <div class="col-md-5 border-right">
             <div class="p-3 py-5">
                 <div class="d-flex justify-content-between align-items-center mb-3">
@@ -119,6 +123,7 @@ if($_SESSION['user_type'] === 'worker'){
                 
                 <div class="mt-5 text-center"><a class="btn btn-primary profile-button" href='EditClientProfile.php?id=<?php  echo $clients->user_id ?>'">تعديل الملف الشخصي</a></div>
             </div>
+           
         </div>
         <div class="col-md-4 mt-5" style="text-align: center;">
             <h3>الخدمة المحجوزة</h3>
@@ -138,7 +143,7 @@ if($_SESSION['user_type'] === 'worker'){
                                     <span>   رقم الهاتف: <?php  echo $bookInfo->Phone ;?> </span>
                                     <span class="text-<?php if($bookInfo->availability == 1 ) {echo 'success' ;}else{ echo 'danger' ; }?>"> <?php if( $bookInfo->availability == 1) { echo  "  متاح حاليا" ; }else{ echo "  غير متاح حاليا" ; }?> </span>
                                     <div class="my-rating" dir="ltr">
-                                      
+                                    
                                     </div>
                                     <div class=" d-flex mt-2"> <a href="ClientProfile.php?delete=delete&id=<?php echo $_SESSION['user_id'] ;?>" class="btn btn-primary">الغاء</a> </div> 
     </div>

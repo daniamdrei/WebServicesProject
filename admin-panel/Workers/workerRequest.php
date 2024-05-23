@@ -29,6 +29,7 @@
                     <th scope="col">Phone number</th>
                     <th scope="col">age</th>
                     <th scope="col">service type</th>
+                    <th scope="col">cv</th>
                     <th scope="col">experience</th>
                     <th scope="col">location</th>
                     <th scope="col"></th>
@@ -43,15 +44,16 @@
                   <?php foreach( $workers as $worker) : ?>
                     <th scope="row"><?php  echo $worker->id ; ?></th>
                     <td> <img class="rounded-circle w-50 h-50" src="../../images/users_img/<?php echo $worker->img?>" alt="image"></td>
-                    <td> <?php echo $worker->name ;  ?></td>
+                    <td> <?php echo $worker->fullname ;  ?></td>
                     <td> <?php echo $worker->email ;  ?></td>
                     <td> <?php echo $worker->Phone ;  ?></td>
                     <td> <?php echo $worker->age ;  ?></td>
                     <td> <?php echo $worker->servicetype ;  ?></td>
+                    <td> <a class="btn  btn-primary btn-sm"  href="../../images/user_cv/<?php echo $worker->cv;  ?>" role="button" download > download</a></td>
                     <td> <?php echo $worker->experience ;  ?></td>
                     <td> <?php echo $worker->location ;  ?></td>
-                    <td> <a href="workerScript.php?id=<?php echo $worker->id ?>&status=status" class="btn btn-success  text-center ">acceptance</a></td>
-                    <td> <a href="workerScript.php?id=<?php echo $worker->id ?>&delete=delete" class="btn btn-danger  text-center ">delete</a></td>
+                    <td> <a href="workerScript.php?id=<?php echo $worker->id ?>&status=status" class="btn btn-success btn-sm  text-center ">acceptance</a></td>
+                    <td> <a href="workerScript.php?id=<?php echo $worker->id ?>&delete=delete" class="btn btn-danger btn-sm text-center ">delete</a></td>
                   </tr>
                   <?php endforeach ;  ?>
                 </tbody>

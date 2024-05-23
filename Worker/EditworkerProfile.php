@@ -34,7 +34,8 @@
                 //upload image name into the file
                 $fileTmpName = $_FILES['img']['tmp_name'];
                 $fileDestination = '../images/users_img/'.$img;
-                $Update =$conn->prepare("UPDATE worker SET fullname = :fullname ,email = :email , Phone = :Phone, age = :age , img = :img , servicetype = :servicetype  WHERE id ='$id'");
+                $Update =$conn->prepare("UPDATE worker SET fullname = :fullname ,email = :email , Phone = :Phone, age = :age , img = :img ,
+                 servicetype = :servicetype  WHERE id ='$id'");
                 if(!empty($img)){
                     unlink("../images/users_img/".$worker->img."");
                     $Update->execute([

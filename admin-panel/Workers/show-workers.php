@@ -13,6 +13,7 @@
  $select->execute();
  $workers = $select->fetchAll(PDO::FETCH_OBJ);
 
+  
 ?>
           <div class="row pt-5">
         <div class="col">
@@ -30,6 +31,7 @@
                     <th scope="col">Phone number</th>
                     <th scope="col">age</th>
                     <th scope="col">service type</th>
+                    <th scope="col">cv </th>
                     <th scope="col">rating</th>
                     <th scope="col">location</th>
                     <th scope="col">delete</th>
@@ -48,9 +50,10 @@
                     <td> <?php echo $worker->Phone ;  ?></td>
                     <td> <?php echo $worker->age ;  ?></td>
                     <td> <?php echo $worker->servicetype ;  ?></td>
+                    <td> <a class="btn  btn-primary btn-sm"  href="../../images/user_cv/<?php echo $worker->cv;  ?>" role="button" download > download</a></td>
                     <td> <?php echo $worker->rating ;  ?></td>
                     <td> <?php echo $worker->location ;  ?></td>
-                    <td> <a href="workerScript.php?id=<?php echo $worker->id ?>&delete=delete" class="btn btn-danger  text-center ">delete</a></td>
+                    <td> <a href="workerScript.php?id=<?php echo $worker->id ?>&delete=delete" class="btn btn-danger btn-sm  text-center ">delete</a></td>
                   </tr>
                   <?php endforeach ;  ?>
                 </tbody>

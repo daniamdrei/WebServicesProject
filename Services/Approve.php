@@ -38,7 +38,7 @@ if( isset($_POST['submit'])){
             $worker = $select->fetch(PDO::FETCH_OBJ);
             
             
-            $insert = $conn->prepare("INSERT INTO book (booking_time ,loc_type , loc_size , problem_details , worker_id , user_id , serverName , serverCategory)
+            $insert = $conn->prepare("INSERT INTO books (booking_time ,loc_type , loc_size , problem_details , worker_id , user_id , serverName , serverCategory)
              VALUES(:booking_time ,:loc_type ,:loc_size ,:problem_details ,:worker_id , :user_id , :serverName , :serverCategory)");
              $insert->execute([
               ':booking_time'=> $booking_time ,

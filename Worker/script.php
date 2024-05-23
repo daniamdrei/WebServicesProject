@@ -10,7 +10,7 @@ if( isset($_GET['Wid']) AND isset($_GET['Uid'])){
   $Uid = $_GET['Uid'];
   
 
-  $update = $conn->prepare("UPDATE book SET finished = :finished WHERE user_id = '$Uid' ");
+  $update = $conn->prepare("UPDATE books SET finished = :finished WHERE user_id = '$Uid' ");
   $update->execute([
     ':finished'=>'1',
   ]);

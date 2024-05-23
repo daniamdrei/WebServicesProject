@@ -163,7 +163,6 @@ Welcome Slider
         <?php echo $service->descriptions ?>
         </p>
         <div class="mt-5" data-aos="slide-down" data-aos-duration="1000">
-            <h4>سعر الخدمة : <span>25 دينار أردني</span></h4>
         <h5>توفر الخدمة : <?php if ($service->status == 0){echo "غير متوفرة" ;}else{ echo "متوفرة" ; } ?>  </h5>
         </div>
         <a class="btn btn-main mt-5 book_btn"" data-aos="slide-down" data-aos-duration="1000" href='Book.php?Sid=<?php echo $id?>'>احجز الخدمة</a>

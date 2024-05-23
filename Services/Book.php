@@ -17,7 +17,7 @@ if(isset($_GET['Sid'])){
    $Sid = $_GET['Sid'];
    $Uid = $_SESSION['user_id'];
     // check if the user already booked a service 
-    $select1=$conn->prepare("SELECT * FROM book where user_id = '$Uid' ");
+    $select1=$conn->prepare("SELECT * FROM books where user_id = '$Uid' ");
     $select1->execute();
     if($select1->rowCount()>0){
       //type a message in index page that the user already booked a service
@@ -360,7 +360,7 @@ button:hover {
 
   <div class="tab" style="text-align: right;">
     <h2>
-        : هل توجد هذه الخدمة خلال
+        : هل تريد هذه الخدمة خلال
     </h2>    
     <select name="booking_time" id="" class="TimeOsService">
         <option value="حالاً">حالاً</option>
