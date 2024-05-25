@@ -100,6 +100,7 @@ Fixed Navigation
           <li class="nav-item">
             <a class="nav-link" href="contact.html" style="font-size: 17px; font-weight: 600;">تواصل معنا</a>
           </li>
+           
           <?php if(isset($_SESSION['user_name']) AND isset($_SESSION['user_type'])  AND $_SESSION['user_type'] == 'client'): ?>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#!" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -119,7 +120,7 @@ Fixed Navigation
             <a class="nav-link dropdown-toggle" href="#!" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <?php echo $_SESSION['user_name'];?>
             </a>
-            
+           
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
               <php></php>
               <li><a class="dropdown-item" href="<?php echo URL; ?>Worker/workerProfile.php?id=<?php echo $_SESSION['user_id']; ?>" style="text-align: right;">الملف الشخصي</a></li>

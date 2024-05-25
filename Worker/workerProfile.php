@@ -4,7 +4,10 @@
 
  ob_start();
  require '../Authentication/config.php' ;
-
+ if(!isset($_SESSION['user_name'])){
+  header('location:'.URL.'Authentication/Login.php?message=يجب عليك تسجيل الدخول لامكانية الانضمام الينا ');
+  exit();
+}
  if($_SESSION['user_type'] === 'client'){
   header('location:http://localhost/php/theme/');
   exit();
