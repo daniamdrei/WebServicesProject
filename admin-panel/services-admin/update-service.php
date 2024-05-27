@@ -28,23 +28,22 @@ if(!isset($_SESSION['AdminName'])){
 
       $fileTmpName = $_FILES['img']['tmp_name'];
       $fileDestination = '../../Services/Images/'.$img;
-
-      $update = $conn->prepare("UPDATE services SET name = :name , category = :category ,descriptions = :descriptions ,
-       img = :img WHERE id = '$id'");
-
+      $update =$conn->prepare("UPDATE services SET  name = :name , category = :category , descriptions = :descriptions,  img = :img
+       WHERE id ='$id'");
        if(!empty($img)){
         unlink("../images/users_img/".$service->img."");
-           $update->execute([
-            ':name' => $name ,
-             ':category'=>$category , 
-             'descriptions'=>$descriptions ,
-              'img'=>$img]);
+        $Update->execute([
+          ":name" =>$name  ,
+          ":category" =>$category  ,
+          ":descriptions" =>$descriptions  ,
+          ":img" =>$img  ,
+        ]);
            }else{
             $update->execute([
-              ':name' => $name ,
-               ':category'=>$category , 
-               'descriptions'=>$descriptions ,
-                'img'=>$service->img]);
+              ":name" =>$name  ,
+              ":category" =>$category  ,
+              ":descriptions" =>$descriptions  ,
+              "img"=>$service->img]);
            }
       header('location:show-services.php');
  }
@@ -58,7 +57,7 @@ if(!isset($_SESSION['AdminName'])){
           <div class="card">
             <div class="card-body">
               <h5 class="card-title mb-5 d-inline">Update Categories</h5>
-          <form method="POST" action="update-service.php" enctype="multipart/form-data">
+          <form method="POST" action="update-service.php?id=<?php echo $id ; ?>" enctype="multipart/form-data">
                 <!-- Email input -->
                 <?php if(isset($_GET['error'])): ?>
                   <p class="alert alert-danger"><?php  echo $_GET['error'] ;?> </p>
@@ -72,7 +71,7 @@ if(!isset($_SESSION['AdminName'])){
                  
                 </div>
                 <div class="form-floating pb-3">
-                  <textarea class="form-control " id="comment" name="descriptions" placeholder="<?php echo $service->descriptions	?>" value=" <?php echo $service->descriptions	?>"></textarea>
+                  <textarea class="form-control " id="comment" name="descriptions" placeholder="<?php echo $service->descriptions	?>" value="<?php echo $service->descriptions ;	?>"></textarea>
                   </div>
                   <div class="mb-3">
                       <label for="formFile" class="form-label">Choose an image for the service</label>
